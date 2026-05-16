@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cafe Menu | Fresh Brews & Bites</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f7f3e8;  /* warm cream background */
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 1.5rem 1rem 3rem 1rem;
+      color: #2c241a;
+    }
+
+    /* menu card container */
+    .menu-card {
+      max-width: 650px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    /* hero header with cafe atmosphere */
+    .hero {
+      background: linear-gradient(135deg, #3e2a1f 0%, #5c3e2a 100%);
+      padding: 2rem 1.5rem 1.8rem 1.5rem;
+      text-align: center;
+      color: #fef5e7;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      letter-spacing: -0.5px;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero h1 span {
+      background: #d9a13b;
+      font-size: 1rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: #2c1c0e;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 0.5rem;
+    }
+
+    /* direct image preview section — main menu visual */
+    .menu-image-section {
+      padding: 1.8rem 1.5rem 0.8rem 1.5rem;
+      background: #fffaf2;
+      border-bottom: 1px solid #f0e2d0;
+    }
+
+    .menu-image-label {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .menu-image-label h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #3e2a1f;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      background: #e8dccc;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #5a3a28;
+    }
+
+    .menu-img-container {
+      background: #fef9f0;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0e0cf;
+      text-align: center;
+    }
+
+    .menu-img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-img-container img:active {
+      transform: scale(1.01);
+    }
+
+    /* fallback / description if image missing */
+    .fallback-note {
+      background: #fff0e0;
+      border-radius: 20px;
+      padding: 1rem;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #b45f2b;
+      border-left: 4px solid #d9a13b;
+    }
+
+    /* text menu sections (digital backup) */
+    .text-menu {
+      padding: 1.2rem 1.5rem 2rem 1.5rem;
+      background: white;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      border-left: 5px solid #d9a13b;
+      padding-left: 0.75rem;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c1a0c;
+    }
+
+    .section-title:first-of-type {
+      margin-top: 0;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.7rem 0;
+      border-bottom: 1px dashed #eedbcb;
+    }
+
+    .item-name {
+      font-weight: 500;
+      font-size: 1rem;
+      color: #2a1f15;
+    }
+
+    .item-desc {
+      font-size: 0.8rem;
+      color: #7a6a5a;
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    .item-price {
+      font-weight: 700;
+      color: #b4622a;
+      font-size: 1rem;
+      background: #fef2e6;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+    }
+
+    .drinks-group, .food-group {
+      margin-bottom: 1rem;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #eedbcb, transparent);
+    }
+
+    /* footer & contact */
+    .footer {
+      background: #faf3e9;
+      padding: 1.2rem 1.5rem 1.8rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #7b6248;
+      border-top: 1px solid #eedbcb;
+    }
+
+    .footer a {
+      color: #b4622a;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .qr-note {
+      background: #f2e6da;
+      padding: 0.6rem;
+      border-radius: 50px;
+      display: inline-block;
+      font-size: 0.75rem;
+      margin-top: 0.6rem;
+    }
+
+    button {
+      background: none;
+      border: none;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 0.8rem 0.8rem 2rem;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .section-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="menu-card">
+  
+  <!-- HERO / CAFE HEADER -->
+  <div class="hero">
+    <h1>
+      ☕ THE COZY CORNER
+      <span>est. 2025</span>
+    </h1>
+    <p>✨ artisan coffee · homemade pastries · cozy vibes ✨</p>
+  </div>
+
+  <!-- MAIN MENU IMAGE SECTION (replace with your own direct image link) -->
+  <div class="menu-image-section">
+    <div class="menu-image-label">
+      <h2>📸 TODAY'S MENU BOARD <span class="badge">scan & enjoy</span></h2>
+      <span class="badge">👉 fresh daily</span>
+    </div>
+    <div class="menu-img-container">
+      <!-- 
+        👇👇👇 IMPORTANT INSTRUCTION 👇👇👇
+        REPLACE the src attribute below with YOUR direct image link.
+        
+        How to get a direct image link (ends with .jpg .png .webp):
+        1. Upload your cafe menu picture to Imgur, Google Drive (shared), or any free image host.
+        2. For Imgur: right-click uploaded image → "Copy image address".
+           Example: https://i.imgur.com/YourImageName.jpg
+        3. Paste it inside src="..."
+        
+        If you don't replace, a stylish placeholder cafe menu will be shown.
+      -->
+      <img 
+        id="cafeMenuImage"
+        src="https://placehold.co/800x1000/f7ede3/8b5a2b?text=CAFE+MENU+BOARD%0A%0A★+Espresso+%243.50%0A★+Latte+%244.25%0A★+Croissant+%243.75%0A★+Avocado+Toast+%248.90%0A%0A%E2%9C%A8+Replace+this+image+with+your+own+direct+link"
+        alt="Cafe Menu Board"
+        loading="lazy"
+      >
+    </div>
+    <div class="fallback-note" id="fallbackNote">
+      💡 <strong>Menu image ready?</strong> To display your own menu photo: edit this page and replace the image <strong>src</strong> with your direct image link (e.g., https://i.imgur.com/yourmenu.jpg). 
+      <a href="#" id="updateExampleLink" style="color:#b4622a; text-decoration:underline;">👇 Show me how</a>
+    </div>
+  </div>
+
+  <!-- TEXT MENU BACKUP (always visible, helps customers with slow connection or if image fails) -->
+  <div class="text-menu">
+    <div class="section-title">☕ COFFEE & DRINKS</div>
+    <div class="drinks-group">
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Espresso</span>
+          <span class="item-desc">bold & smooth single shot</span>
+        </div>
+        <span class="item-price">$3.25</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Oat Latte</span>
+          <span class="item-desc">double espresso + steamed oat milk</span>
+        </div>
+        <span class="item-price">$4.75</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Caramel Macchiato</span>
+          <span class="item-desc">vanilla, caramel drizzle</span>
+        </div>
+        <span class="item-price">$5.25</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Matcha Latte</span>
+          <span class="item-desc">ceremonial grade, choice of milk</span>
+        </div>
+        <span class="item-price">$5.00</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Iced Americano</span>
+          <span class="item-desc">refreshing & crisp</span>
+        </div>
+        <span class="item-price">$3.75</span>
+      </div>
+    </div>
+
+    <div class="section-title">🍰 BAKERY & BITES</div>
+    <div class="food-group">
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Butter Croissant</span>
+          <span class="item-desc">flaky, golden, made in-house</span>
+        </div>
+        <span class="item-price">$3.75</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Avocado Toast</span>
+          <span class="item-desc">sourdough, chili flakes, lemon</span>
+        </div>
+        <span class="item-price">$8.90</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Blueberry Muffin</span>
+          <span class="item-desc">moist, crumb topping</span>
+        </div>
+        <span class="item-price">$3.50</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <span class="item-name">Vegan Banana Bread</span>
+          <span class="item-desc">gluten-free option available</span>
+        </div>
+        <span class="item-price">$4.25</span>
+      </div>
+    </div>
+
+    <div class="section-title">🥗 LUNCH BOWLS</div>
+    <div class="menu-item">
+      <div>
+        <span class="item-name">Mediterranean Bowl</span>
+        <span class="item-desc">quinoa, feta, cucumber, olives, herbs</span>
+      </div>
+      <span class="item-price">$11.50</span>
+    </div>
+    <div class="menu-item">
+      <div>
+        <span class="item-name">Chicken Pesto Pasta</span>
+        <span class="item-desc">grilled chicken, basil pesto, parmesan</span>
+      </div>
+      <span class="item-price">$12.25</span>
+    </div>
+    <div class="menu-item">
+      <div>
+        <span class="item-name">Soup of the Day</span>
+        <span class="item-desc">served with sourdough</span>
+      </div>
+      <span class="item-price">$6.50</span>
+    </div>
+  </div>
+
+  <!-- FOOTER + QR NOTE (inspiring your real QR usage) -->
+  <div class="footer">
+    <p>📍 123 Brew Lane · Downtown · Open daily 8am – 8pm</p>
+    <p>📞 (555) 762-4321  |  🍃 outdoor seating & free Wi-Fi</p>
+    <div class="qr-note">
+      📱 Scan this QR again to reload the menu — bookmark or save to home screen ✨
+    </div>
+    <p style="margin-top: 12px; font-size: 0.7rem;">
+      💡 <strong>Hosting tip:</strong> This HTML page is ready for GitHub Pages.<br>
+      Just upload this file (menu.html) to a GitHub repo → enable Pages → your menu goes live!
+    </p>
+  </div>
+</div>
+
+<!-- simple javascript for interactive fallback hint -->
+<script>
+  (function() {
+    // get the menu image element
+    const menuImg = document.getElementById('cafeMenuImage');
+    const fallbackDiv = document.getElementById('fallbackNote');
+    
+    // optional: function to detect if the placeholder image is still placeholder
+    // but we don't want to annoy user — instead we provide a smooth helper.
+    
+    // If you want to show a dynamic update instruction, we build a small tooltip.
+    const updateLinkSpan = document.getElementById('updateExampleLink');
+    if (updateLinkSpan) {
+      updateLinkSpan.addEventListener('click', (e) => {
+        e.preventDefault();
+        // show a nice alert with instructions
+        const userConfirmed = confirm(
+          "📸 TO REPLACE WITH YOUR OWN MENU IMAGE:\n\n" +
+          "1️⃣ Upload your cafe menu picture to Imgur (or any host).\n" +
+          "2️⃣ Right-click on the image after upload → 'Copy image address'. You need a link ending in .jpg or .png\n" +
+          "   Example: https://i.imgur.com/AbCdEfG.jpg\n" +
+          "3️⃣ Open this HTML file in any editor. Find the line that says: <img id='cafeMenuImage' src='...' \n" +
+          "4️⃣ Replace the src content inside the quotes with your direct image link.\n\n" +
+          "5️⃣ Re-upload to GitHub Pages — your menu photo will be displayed!\n\n" +
+          "✨ For Google Drive: generate a shareable link and use 'https://drive.google.com/uc?export=view&id=YOUR_FILE_ID'"
+        );
+        if(userConfirmed) {
+          // Optional: scroll to image
+          menuImg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }
+
+    // Additional helper: detect if img fails to load (network issue or broken link)
+    menuImg.addEventListener('error', function() {
+      // image failed to load, but we keep fallback note visible
+      if (fallbackDiv) {
+        fallbackDiv.innerHTML = '<strong>⚠️ Menu image not loaded</strong><br> Please check the image link. You can still use the text menu above. To fix: replace the img src with a valid direct image URL. <a href="#" id="fixNowLink" style="color:#b4622a;">How to fix</a>';
+        const fixLink = document.getElementById('fixNowLink');
+        if (fixLink) {
+          fixLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert("Replace the 'src' attribute of <img id='cafeMenuImage'> with your direct image link (ends .jpg/.png). Example: https://i.imgur.com/example.jpg");
+          });
+        }
+      }
+    });
+
+    // additional: if the image loads but still shows placeholder text, we leave the note but update text.
+    // we just want to inform user that the menu image can be replaced.
+    // Also, when loaded, we can optionally mark that image is active.
+    menuImg.addEventListener('load', function() {
+      // check if src still contains placeholder domain or typical placeholder text
+      const currentSrc = menuImg.getAttribute('src');
+      if (currentSrc && (currentSrc.includes('placehold.co') || currentSrc.includes('placeholder'))) {
+        if(fallbackDiv) {
+          fallbackDiv.style.background = "#fff2e5";
+          fallbackDiv.innerHTML = '🖼️ <strong>Replace this placeholder image</strong> — follow the instructions above to show your actual cafe menu photo. Update the <code style="background:#eadbcb; padding:2px 6px; border-radius:12px;">src</code> attribute with your direct link. <a href="#" id="editAgainLink" style="color:#b4622a;">show me how</a>';
+          const againLink = document.getElementById('editAgainLink');
+          if(againLink) {
+            againLink.addEventListener('click', (e) => {
+              e.preventDefault();
+              alert("Edit this HTML: find <img id='cafeMenuImage' src='...' > replace the src value with your direct image URL.\n\nGood to go? Host on GitHub Pages and share the QR code that points to your live page!");
+            });
+          }
+        }
+      } else {
+        // custom menu image loaded successfully! we can update the note to a success message
+        if(fallbackDiv && !currentSrc.includes('placehold.co')) {
+          fallbackDiv.innerHTML = '✅ <strong>Your menu image is live!</strong> Customers will see your beautiful cafe board. The text menu below works as a perfect backup. ☕ Enjoy!';
+          fallbackDiv.style.background = "#e6f0e6";
+          fallbackDiv.style.borderLeftColor = "#2c7840";
+        }
+      }
+    });
+  })();
+</script>
+<!-- 
+  ==========================================================
+  GITHUB PAGES DEPLOYMENT INSTRUCTIONS (FREE HOSTING):
+  ==========================================================
+  1. Save this file as "index.html" (or menu.html) on your computer.
+  2. Create a new repository on GitHub (public or private — public is free for Pages).
+  3. Upload this file to the repository (you can drag & drop on GitHub web).
+  4. Go to repository Settings → Pages → under "Branch" select "main" → save.
+  5. Within 1-2 minutes, your menu will be live at: https://YOURUSERNAME.github.io/REPOSITORYNAME/
+  6. That URL becomes your “digital menu link”. 
+  7. Generate a QR code from that live URL using any free QR generator (QR Code Monkey, etc.).
+  8. Print QR code and stick on tables — customers scan → see this beautiful menu!
+
+  NOTE: To show your own menu IMAGE:
+  - Replace the img src with a DIRECT image link (from Imgur, Cloudinary, or any image hosting)
+  - Recommended: Imgur → upload → right-click → copy image address (ends .jpg)
+  - Edit the src="..." inside <img id="cafeMenuImage" ...>
+  
+  Everything else (text, prices, design) you can freely edit. 
+  This page is responsive, works on all devices, and gives customers an instant cafe menu.
+-->
+</body>
+</html>
